@@ -1,6 +1,6 @@
 {
   "name": "celigo-mcp",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "MCP server for Celigo integrator.io API - enables Claude and other MCP clients to interact with Celigo integrations, flows, and connections",
   "type": "module",
   "bin": {
@@ -16,7 +16,7 @@
   },
   "files": [
     "build",
-    "README.md"
+    "LICENSE"
   ],
   "keywords": [
     "mcp",
