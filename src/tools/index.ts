@@ -11,6 +11,7 @@ import { listIntegrations } from "./integrations/list-integrations.js";
 import { updateIntegration } from "./integrations/update-integration.js";
 
 // Flow tools
+import { deleteFlow } from "./flows/delete-flow.js";
 import { getFlow } from "./flows/get-flow.js";
 import { listFlows } from "./flows/list-flows.js";
 import { runFlow } from "./flows/run-flow.js";
@@ -48,6 +49,7 @@ export function registerAllTools(context: ToolContext) {
   listFlows(context);
   getFlow(context);
   runFlow(context);
+  deleteFlow(context);
 
   // Connection tools
   listConnections(context);
