@@ -1,0 +1,54 @@
+{
+  "name": "celigo-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for Celigo integrator.io API - enables Claude and other MCP clients to interact with Celigo integrations, flows, and connections",
+  "type": "module",
+  "bin": {
+    "celigo-mcp": "./build/index.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc && chmod 755 build/index.js",
+    "prepare": "npm run build",
+    "test": "echo \"No tests yet\" && exit 0"
+  },
+  "files": [
+    "build",
+    "README.md"
+  ],
+  "keywords": [
+    "mcp",
+    "celigo",
+    "integration",
+    "model-context-protocol",
+    "claude",
+    "ai",
+    "integrator",
+    "ipaas",
+    "etl"
+  ],
+  "author": "Ilyasse Salama",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ilyassesalama/celigo-mcp.git"
+  },
+  "homepage": "https://github.com/ilyassesalama/celigo-mcp",
+  "bugs": {
+    "url": "https://github.com/ilyassesalama/celigo-mcp/issues"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.4",
+    "axios": "^1.7.9",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
