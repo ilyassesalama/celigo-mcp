@@ -2,7 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/celigo-mcp.svg)](https://www.npmjs.com/package/celigo-mcp)
 
-A Model Context Protocol (MCP) server for the Celigo integrator.io API. This server allows Claude and other MCP clients to interact with Celigo integrations, flows, connections, and more.
+A Model Context Protocol (MCP) server for the Celigo integrator.io API. This server allows ChatGPT, Claude, Cursor, and other MCP clients to interact with Celigo integrations, flows, connections, and more.
 
 ## Usage
 
@@ -69,9 +69,9 @@ Add this configuration to your MCP client config file:
 - `list_imports` - List all import configurations
 - `get_import` - Get a specific import configuration by ID
 
-## Example Usage with Claude
+## Example Usage
 
-Once configured, you can ask Claude to:
+Once configured, you can ask ChatGPT, Claude, Cursor, and other MCP clients to:
 
 - "List all my Celigo integrations"
 - "Show me the flows for integration [integration-id]"
