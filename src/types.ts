@@ -52,6 +52,69 @@ export interface Flow {
   disabled?: boolean;
 }
 
+// Flow configuration types
+export interface PageGenerator {
+  _exportId: string;
+  skipRetries?: boolean;
+}
+
+export interface ExportResponseMapping {
+  fields: Array<{
+    extract: string;
+    generate: string;
+  }>;
+  lists: Array<{
+    extract: string;
+    generate: string;
+  }>;
+}
+
+export interface ImportResponseMapping {
+  fields: Array<{
+    extract: 'id' | 'statusCode';
+    generate: string;
+  }>;
+  lists: Array<{
+    extract: string;
+    generate: string;
+  }>;
+}
+
+export interface Hook {
+  function: string;
+  _scriptId: string;
+}
+
+export interface ExportProcessor {
+  type: 'export';
+  _exportId: string;
+  proceedOnFailure?: boolean;
+  responseMapping: ExportResponseMapping;
+  hooks?: {
+    postResponseMap: Hook;
+  };
+}
+
+export interface ImportProcessor {
+  type: 'import';
+  _importId: string;
+  proceedOnFailure?: boolean;
+  responseMapping?: ImportResponseMapping;
+}
+
+export type PageProcessor = ExportProcessor | ImportProcessor;
+
+export interface FlowConfig {
+  name: string;
+  _integrationId: string;
+  _flowGroupingId: string;
+  pageGenerators: PageGenerator[];
+  pageProcessors: PageProcessor[];
+  free?: boolean;
+  disabled?: boolean;
+  sandbox?: boolean;
+}
+
 // Celigo Connection types
 export interface Connection {
   _id?: string;

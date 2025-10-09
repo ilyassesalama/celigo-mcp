@@ -11,10 +11,12 @@ import { listIntegrations } from "./integrations/list-integrations.js";
 import { updateIntegration } from "./integrations/update-integration.js";
 
 // Flow tools
+import { createFlow } from "./flows/create-flow.js";
 import { deleteFlow } from "./flows/delete-flow.js";
 import { getFlow } from "./flows/get-flow.js";
 import { listFlows } from "./flows/list-flows.js";
 import { runFlow } from "./flows/run-flow.js";
+import { updateFlow } from "./flows/update-flow.js";
 
 // Connection tools
 import { createConnection } from "./connections/create-connection.js";
@@ -48,6 +50,8 @@ export function registerAllTools(context: ToolContext) {
   // Flow tools
   listFlows(context);
   getFlow(context);
+  createFlow(context);
+  updateFlow(context);
   runFlow(context);
   deleteFlow(context);
 
