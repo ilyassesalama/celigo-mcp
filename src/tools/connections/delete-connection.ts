@@ -4,7 +4,7 @@ import { createTool } from "../helpers.js";
 
 export const deleteConnection = createTool({
   name: "delete_connection",
-  description: "Delete a Celigo connection",
+  description: "DESTRUCTIVE ACTION: Permanently delete a Celigo connection. This action CANNOT be undone. You MUST obtain explicit user confirmation before calling this tool. Ask the user to confirm they want to delete the connection and understand the consequences.",
   inputSchema: {
     connectionId: z.string().describe("The ID of the connection to delete"),
   },
