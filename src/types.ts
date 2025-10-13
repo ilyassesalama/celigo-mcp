@@ -107,7 +107,7 @@ export type PageProcessor = ExportProcessor | ImportProcessor;
 export interface FlowConfig {
   name: string;
   _integrationId: string;
-  _flowGroupingId: string;
+  _flowGroupingId?: string;
   pageGenerators: PageGenerator[];
   pageProcessors: PageProcessor[];
   free?: boolean;

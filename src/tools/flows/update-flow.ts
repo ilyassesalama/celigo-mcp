@@ -90,7 +90,7 @@ Example:
     config: z.object({
       name: z.string().describe("Name of the flow"),
       _integrationId: z.string().describe("The ID of the integration this flow belongs to"),
-      _flowGroupingId: z.string().describe("The ID of the flow grouping"),
+      _flowGroupingId: z.string().optional().describe("The ID of the flow grouping (optional)"),
       pageGenerators: z.array(z.object({
         _exportId: z.string(),
         skipRetries: z.boolean().optional(),

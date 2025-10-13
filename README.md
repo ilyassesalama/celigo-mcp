@@ -49,7 +49,15 @@ Add this configuration to your MCP client config file:
 
 - `list_flows` - List flows for a specific integration
 - `get_flow` - Get a specific flow by ID
+- `create_flow` - Create a new flow
+- `update_flow` - Update an existing flow
+- `clone_flow` - Clone an existing flow
 - `run_flow` - Run a specific flow
+- `get_flow_errors` - Get errors for a specific flow
+- `get_flow_audit` - Get audit history for a flow
+- `get_flow_dependencies` - Get dependencies for a flow
+- `get_flow_jobs` - Get job history for a flow
+- `delete_flow` - Delete a flow
 
 ### Connection Management
 
@@ -63,11 +71,17 @@ Add this configuration to your MCP client config file:
 
 - `list_exports` - List all export configurations
 - `get_export` - Get a specific export configuration by ID
+- `create_export` - Create a new export configuration
+- `update_export` - Update an existing export configuration
+- `delete_export` - Delete an export configuration
 
 ### Import Management
 
 - `list_imports` - List all import configurations
 - `get_import` - Get a specific import configuration by ID
+- `create_import` - Create a new import configuration
+- `update_import` - Update an existing import configuration
+- `delete_import` - Delete an import configuration
 
 ## Example Usage
 
@@ -75,9 +89,16 @@ Once configured, you can ask ChatGPT, Claude, Cursor, and other MCP clients to:
 
 - "List all my Celigo integrations"
 - "Show me the flows for integration [integration-id]"
+- "Create a new flow for integration [integration-id]"
+- "Clone flow [flow-id] and name it 'New Flow'"
+- "Show me recent errors for flow [flow-id]"
+- "Get job history for flow [flow-id]"
 - "Create a new HTTP connection named 'My API Connection'"
+- "Update connection [connection-id] with new settings"
 - "Run the flow with ID [flow-id]"
 - "Get details about connection [connection-id]"
+- "Create a new export configuration"
+- "Show me the audit history for flow [flow-id]"
 
 ## Getting Your Celigo API Token
 
