@@ -25,4 +25,3 @@ export const createIntegration = createTool({
     return response.data;
   }
 });
-

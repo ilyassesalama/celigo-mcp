@@ -1,5 +1,5 @@
 import axios, { AxiosError } from 'axios';
-import { ApiResponse, CeligoErrorCode, CeligoRegion, ErrorResponse } from './types.js';
+import { ApiResponse, CeligoRegion } from './types.js';
 
 export const CELIGO_API_BASES = {
   [CeligoRegion.NA]: 'https://api.integrator.io/v1',
@@ -58,87 +58,32 @@ export async function makeRequest<T, D = Record<string, unknown>>(
       const errorData = axiosError.response?.data;
 
       if (axiosError.response?.status === 401) {
-        throw createErrorResponse(
-          CeligoErrorCode.InvalidCredentials,
-          'Invalid or expired token. Please check your Celigo credentials.'
-        );
+        throw new Error('Invalid or expired token. Please check your Celigo credentials.');
       }
 
       if (axiosError.response?.status === 404) {
-        throw createErrorResponse(
-          CeligoErrorCode.ConnectionNotFound,
-          'Resource not found. Please verify the requested resource exists.'
-        );
+        throw new Error('Resource not found. Please verify the requested resource exists.');
       }
 
       if (axiosError.response?.status === 400) {
-        throw createErrorResponse(
-          CeligoErrorCode.InvalidConfig,
-          `Invalid request: ${formatErrorDetails(errorData)}`,
-          errorData
-        );
+        throw new Error(`Invalid request: ${formatErrorDetails(errorData)}`);
       }
 
-      throw createErrorResponse(
-        CeligoErrorCode.ApiError,
-        `API Error (${axiosError.response?.status}): ${formatErrorDetails(errorData)}`,
-        errorData
-      );
+      if (axiosError.response?.status === 422) {
+        throw new Error(`Validation error: ${formatErrorDetails(errorData)}`);
+      }
+
+      throw new Error(`API Error (${axiosError.response?.status}): ${formatErrorDetails(errorData)}`);
     }
 
     if (error instanceof Error && error.message.includes('Network')) {
-      throw createErrorResponse(
-        CeligoErrorCode.NetworkError,
-        'Network error occurred. Please check your internet connection.'
-      );
+      throw new Error('Network error occurred. Please check your internet connection.');
     }
 
-    throw createErrorResponse(
-      CeligoErrorCode.UnknownError,
-      `Unexpected error: ${formatErrorDetails(error)}`
-    );
+    throw new Error(`Unexpected error: ${formatErrorDetails(error)}`);
   }
 }
 
-export function createErrorResponse(
-  code: CeligoErrorCode,
-  message: string,
-  rawError?: unknown
-): ErrorResponse {
-  const errorResponse: ErrorResponse = {
-    status: 'error',
-    error: message,
-    details: {
-      code,
-      message,
-      raw: rawError
-    }
-  };
-  
-  if (rawError && typeof rawError === 'object' && 'isAxiosError' in rawError && rawError.isAxiosError) {
-    if ('response' in rawError && 
-        rawError.response && 
-        typeof rawError.response === 'object' && 
-        errorResponse.details) {
-      
-      const response = rawError.response;
-      
-      if ('status' in response) {
-        errorResponse.details.statusCode = response.status as number;
-      }
-      
-      if ('statusText' in response) {
-        errorResponse.details.statusText = response.statusText as string;
-      }
-      
-      if ('data' in response) {
-        errorResponse.details.apiResponse = response.data;
-      }
-    }
-  }
-  
-  return errorResponse;
-}
 
 export const api = {
   async get<T>(endpoint: string, token: string, region: CeligoRegion): Promise<ApiResponse<T>> {

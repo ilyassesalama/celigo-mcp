@@ -26,13 +26,9 @@ export function createTool(definition: ToolDefinition) {
             ],
           };
         } catch (error) {
+          const errorText = error instanceof Error ? error.message : String(error);
           return {
-            content: [
-              {
-                type: "text",
-                text: `Error: ${error instanceof Error ? error.message : String(error)}`,
-              },
-            ],
+            content: [{ type: "text", text: `Error: ${errorText}` }]
           };
         }
       }

@@ -13,19 +13,6 @@ export interface ApiResponse<T> {
   status: number;
 }
 
-export interface ErrorResponse {
-  status: 'error';
-  error: string;
-  details?: {
-    code: string;
-    message: string;
-    raw?: unknown;
-    statusCode?: number;
-    statusText?: string;
-    apiResponse?: unknown;
-  };
-}
-
 export enum CeligoErrorCode {
   InvalidCredentials = 'INVALID_CREDENTIALS',
   ConnectionNotFound = 'CONNECTION_NOT_FOUND',
