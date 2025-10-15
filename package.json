@@ -1,6 +1,6 @@
 {
   "name": "celigo-mcp",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "MCP server for Celigo integrator.io API - enables ChatGPT, Claude, Cursor, and other MCP clients to interact with Celigo integrations, flows, and connections",
   "type": "module",
   "bin": {
