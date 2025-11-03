@@ -114,7 +114,7 @@ export const api = {
   
   async validateToken(token: string, region: CeligoRegion): Promise<boolean> {
     try {
-      const response = await this.get<{ _userId: string; scope: string }>('/tokenInfo', token, region);
+      const response = await this.get<{ _userId: string }>('/tokenInfo', token, region);
       return response.status === 200 && !!response.data._userId;
     } catch (error) {
       console.error('Token validation failed:', error);

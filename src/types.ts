@@ -114,8 +114,6 @@ export interface Connection {
 // Token info response
 export interface TokenInfo {
   _userId: string;
-  scope: string;
-  email?: string;
 }
 
 // Export/Import configuration
