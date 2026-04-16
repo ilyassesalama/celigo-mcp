@@ -131,3 +131,58 @@ export interface ImportConfig {
   [key: string]: any;
 }
 
+// Script types
+export interface Script {
+  _id?: string;
+  name: string;
+  content?: string;
+  sandbox?: boolean;
+  description?: string;
+  [key: string]: any;
+}
+
+// Tag types
+export interface Tag {
+  _id?: string;
+  tag: string;
+  [key: string]: any;
+}
+
+// User/Share types
+export interface UserShare {
+  _id?: string;
+  email?: string;
+  accessLevel?: string;
+  [key: string]: any;
+}
+
+// iClient types
+export interface IClient {
+  _id?: string;
+  name?: string;
+  provider: string;
+  [key: string]: any;
+}
+
+// File Definition types
+export interface FileDefinition {
+  _id?: string;
+  name: string;
+  format: string;
+  [key: string]: any;
+}
+
+// Job types
+export interface Job {
+  _id?: string;
+  type?: string;
+  status?: string;
+  _flowId?: string;
+  [key: string]: any;
+}
+
+// License types
+export interface License {
+  _id?: string;
+  [key: string]: any;
+}

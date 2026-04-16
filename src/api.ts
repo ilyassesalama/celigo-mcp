@@ -32,7 +32,7 @@ function formatErrorDetails(error: unknown): string {
 }
 
 export async function makeRequest<T, D = Record<string, unknown>>(
-  method: 'get' | 'post' | 'put' | 'delete',
+  method: 'get' | 'post' | 'put' | 'delete' | 'patch',
   endpoint: string,
   token: string,
   region: CeligoRegion,
@@ -110,6 +110,15 @@ export const api = {
 
   async delete<T>(endpoint: string, token: string, region: CeligoRegion): Promise<ApiResponse<T>> {
     return makeRequest<T>('delete', endpoint, token, region);
+  },
+
+  async patch<T, D = Record<string, unknown>>(
+    endpoint: string,
+    token: string,
+    region: CeligoRegion,
+    data: D
+  ): Promise<ApiResponse<T>> {
+    return makeRequest<T, D>('patch', endpoint, token, region, data);
   },
   
   async validateToken(token: string, region: CeligoRegion): Promise<boolean> {

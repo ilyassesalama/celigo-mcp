@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { api, filterCeligoResponse } from "../../api.js";
+import { ImportConfig } from "../../types.js";
 import { createTool } from "../helpers.js";
 
 export const listImports = createTool({
@@ -29,7 +30,7 @@ Returns filtered results with optional pagination for better performance.`,
     if (name) params.push(`name=${encodeURIComponent(name)}`);
     if (params.length > 0) endpoint += `?${params.join('&')}`;
 
-    const response = await api.get(endpoint, context.accessToken, context.region);
+    const response = await api.get<ImportConfig[]>(endpoint, context.accessToken, context.region);
     return filterCeligoResponse(response.data);
   }
 });

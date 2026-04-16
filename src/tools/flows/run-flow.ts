@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { api } from "../../api.js";
+import { api, filterCeligoResponse } from "../../api.js";
 import { createTool } from "../helpers.js";
 
 export const runFlow = createTool({
@@ -15,7 +15,7 @@ export const runFlow = createTool({
       context.region,
       {}
     );
-    return response.data;
+    return filterCeligoResponse(response.data);
   }
 });
 

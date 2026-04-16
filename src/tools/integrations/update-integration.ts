@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { api } from "../../api.js";
+import { api, filterCeligoResponse } from "../../api.js";
 import { Integration } from "../../types.js";
 import { createTool } from "../helpers.js";
 
@@ -22,7 +22,7 @@ export const updateIntegration = createTool({
       context.region,
       updateData
     );
-    return response.data;
+    return filterCeligoResponse(response.data);
   }
 });
 

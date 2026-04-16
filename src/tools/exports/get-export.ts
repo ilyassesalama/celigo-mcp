@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { api, filterCeligoResponse } from "../../api.js";
+import { ExportConfig } from "../../types.js";
 import { createTool } from "../helpers.js";
 
 export const getExport = createTool({
@@ -9,7 +10,7 @@ export const getExport = createTool({
     exportId: z.string().describe("The ID of the export to retrieve"),
   },
   handler: async ({ exportId }, context) => {
-    const response = await api.get(
+    const response = await api.get<ExportConfig>(
       `/exports/${exportId}`,
       context.accessToken,
       context.region

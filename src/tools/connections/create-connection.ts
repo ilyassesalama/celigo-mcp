@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { api } from "../../api.js";
+import { api, filterCeligoResponse } from "../../api.js";
 import { Connection } from "../../types.js";
 import { createTool } from "../helpers.js";
 
@@ -24,7 +24,7 @@ export const createConnection = createTool({
       context.region,
       connectionData
     );
-    return response.data;
+    return filterCeligoResponse(response.data);
   }
 });
 

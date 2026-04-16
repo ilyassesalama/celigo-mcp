@@ -56,7 +56,7 @@ Example:
       endpoint = `/flows/${flowId}/imports/${importId}/errors`;
     } else {
       // If neither specified, get flow-level errors (typically from exports)
-      return { error: 'Either exportId or importId must be specified' };
+      throw new Error('Either exportId or importId must be specified');
     }
 
     // Build query parameters

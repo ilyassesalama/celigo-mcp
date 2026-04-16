@@ -1,57 +1,8 @@
 import { z } from "zod";
-import { api } from "../../api.js";
+import { api, filterCeligoResponse } from "../../api.js";
 import { Flow } from "../../types.js";
 import { createTool } from "../helpers.js";
-
-// Zod schema for flow configuration validation
-const hookSchema = z.object({
-  function: z.string(),
-  _scriptId: z.string(),
-});
-
-const exportResponseMappingSchema = z.object({
-  fields: z.array(z.object({
-    extract: z.string(),
-    generate: z.string(),
-  })),
-  lists: z.array(z.object({
-    extract: z.string(),
-    generate: z.string(),
-  })),
-});
-
-const importResponseMappingSchema = z.object({
-  fields: z.array(z.object({
-    extract: z.enum(['id', 'statusCode']),
-    generate: z.string(),
-  })),
-  lists: z.array(z.object({
-    extract: z.string(),
-    generate: z.string(),
-  })),
-});
-
-const exportProcessorSchema = z.object({
-  type: z.literal('export'),
-  _exportId: z.string(),
-  proceedOnFailure: z.boolean().optional(),
-  responseMapping: exportResponseMappingSchema,
-  hooks: z.object({
-    postResponseMap: hookSchema,
-  }).optional(),
-});
-
-const importProcessorSchema = z.object({
-  type: z.literal('import'),
-  _importId: z.string(),
-  proceedOnFailure: z.boolean().optional(),
-  responseMapping: importResponseMappingSchema.optional(),
-});
-
-const pageProcessorSchema = z.discriminatedUnion('type', [
-  exportProcessorSchema,
-  importProcessorSchema,
-]);
+import { pageProcessorSchema } from "./schemas.js";
 
 export const createFlow = createTool({
   name: "create_flow",
@@ -114,7 +65,7 @@ Example configuration:
       context.region,
       config as any
     );
-    return response.data;
+    return filterCeligoResponse(response.data);
   }
 });
 
