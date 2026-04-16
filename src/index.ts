@@ -2,8 +2,12 @@
 
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { createRequire } from 'node:module';
 import { registerAllTools } from './tools/index.js';
 import { CeligoRegion } from './types.js';
+
+const require = createRequire(import.meta.url);
+const pkg = require('../package.json') as { name: string; version: string };
 
 // Parse command line arguments
 const args = process.argv.slice(2);
@@ -29,14 +33,18 @@ if (!accessToken) {
 }
 
 // Create server instance
-const server = new McpServer({
-  name: "celigo",
-  version: "1.0.0",
-  capabilities: {
-    resources: {},
-    tools: {},
+const server = new McpServer(
+  {
+    name: pkg.name,
+    version: pkg.version,
   },
-});
+  {
+    capabilities: {
+      resources: {},
+      tools: {},
+    },
+  }
+);
 
 // Register all tools
 registerAllTools({
