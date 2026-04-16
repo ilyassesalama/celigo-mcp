@@ -4,16 +4,15 @@ import { createTool } from "../helpers.js";
 
 export const getResourceStateValue = createTool({
   name: "get_resource_state_value",
-  description: "Get a state value for a specific resource within an integration.",
+  description: "Get a state value scoped to a specific resource (export, import, connection, flow, integration).",
   inputSchema: {
-    integrationId: z.string().describe("The ID of the integration"),
-    resourceType: z.string().describe("Resource type (e.g., 'exports', 'imports', 'connections')"),
+    resourceType: z.string().describe("Resource type path segment (e.g., 'exports', 'imports', 'connections', 'flows', 'integrations')"),
     resourceId: z.string().describe("The ID of the resource"),
     key: z.string().describe("The state key to retrieve"),
   },
-  handler: async ({ integrationId, resourceType, resourceId, key }, context) => {
+  handler: async ({ resourceType, resourceId, key }, context) => {
     const response = await api.get(
-      `/integrations/${integrationId}/state/${resourceType}/${resourceId}/${encodeURIComponent(key)}`,
+      `/${resourceType}/${resourceId}/state/${encodeURIComponent(key)}`,
       context.accessToken,
       context.region
     );

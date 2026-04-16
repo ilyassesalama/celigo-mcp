@@ -11,7 +11,7 @@ export const registerConnection = createTool({
   },
   handler: async ({ connectionId, integrationId }, context) => {
     const response = await api.put(
-      `/connections/${connectionId}/register/${integrationId}`,
+      `/integrations/${integrationId}/connections/${connectionId}/register`,
       context.accessToken,
       context.region,
       {}

@@ -11,10 +11,10 @@ export const executeVirtualExport = createTool({
   },
   handler: async ({ connectionId, export: exportConfig }, context) => {
     const response = await api.post(
-      '/exports/virtual',
+      `/connections/${connectionId}/export`,
       context.accessToken,
       context.region,
-      { _connectionId: connectionId, ...exportConfig }
+      { export: exportConfig }
     );
     return filterCeligoResponse(response.data);
   }

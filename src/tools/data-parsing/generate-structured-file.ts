@@ -11,7 +11,7 @@ export const generateStructuredFile = createTool({
   },
   handler: async (params, context) => {
     const response = await api.post(
-      '/data/generate/structured',
+      '/processors/structuredFileGenerator',
       context.accessToken,
       context.region,
       params

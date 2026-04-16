@@ -10,7 +10,7 @@ export const parseXmlToJson = createTool({
   },
   handler: async ({ data }, context) => {
     const response = await api.post(
-      '/data/parse/xml',
+      '/processors/xmlParser',
       context.accessToken,
       context.region,
       { data }

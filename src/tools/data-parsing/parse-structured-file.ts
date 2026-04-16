@@ -11,7 +11,7 @@ export const parseStructuredFile = createTool({
   },
   handler: async (params, context) => {
     const response = await api.post(
-      '/data/parse/structured',
+      '/processors/structuredFileParser',
       context.accessToken,
       context.region,
       params

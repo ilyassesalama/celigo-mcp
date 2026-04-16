@@ -48,27 +48,19 @@ Example:
     source: z.string().optional().describe("Filter by error source (e.g., 'application', 'system')"),
   },
   handler: async ({ flowId, exportId, importId, limit, occurredAfter, occurredBefore, source }, context) => {
-    // Build the endpoint based on whether we're querying export or import errors
-    let endpoint = '';
-    if (exportId) {
-      endpoint = `/flows/${flowId}/exports/${exportId}/errors`;
-    } else if (importId) {
-      endpoint = `/flows/${flowId}/imports/${importId}/errors`;
-    } else {
-      // If neither specified, get flow-level errors (typically from exports)
+    const expOrImpId = exportId || importId;
+    if (!expOrImpId) {
       throw new Error('Either exportId or importId must be specified');
     }
 
-    // Build query parameters
     const params: string[] = [];
     if (limit) params.push(`limit=${limit}`);
-    if (occurredAfter) params.push(`occurredAt_gte=${occurredAfter}`);
-    if (occurredBefore) params.push(`occurredAt_lte=${occurredBefore}`);
-    if (source) params.push(`source=${source}`);
+    if (occurredAfter) params.push(`occurredAt_gte=${encodeURIComponent(occurredAfter)}`);
+    if (occurredBefore) params.push(`occurredAt_lte=${encodeURIComponent(occurredBefore)}`);
+    if (source) params.push(`source=${encodeURIComponent(source)}`);
 
-    if (params.length > 0) {
-      endpoint += `?${params.join('&')}`;
-    }
+    const qs = params.length ? `?${params.join('&')}` : '';
+    const endpoint = `/flows/${flowId}/${expOrImpId}/errors${qs}`;
 
     const response = await api.get<{ errors: CeligoError[] }>(
       endpoint,

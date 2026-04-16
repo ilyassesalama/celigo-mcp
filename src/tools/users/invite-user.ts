@@ -13,7 +13,7 @@ export const inviteUser = createTool({
   },
   handler: async (params, context) => {
     const response = await api.post<UserShare>(
-      '/ashares',
+      '/invite',
       context.accessToken,
       context.region,
       params

@@ -12,10 +12,10 @@ export const exportVirtualPaged = createTool({
   },
   handler: async ({ connectionId, export: exportConfig, pagedExportState }, context) => {
     const response = await api.post(
-      '/exports/virtual/paged',
+      `/connections/${connectionId}/export/pages`,
       context.accessToken,
       context.region,
-      { _connectionId: connectionId, ...exportConfig, ...(pagedExportState && { pagedExportState }) }
+      { export: exportConfig, ...(pagedExportState && { pagedExportState }) }
     );
     return filterCeligoResponse(response.data);
   }

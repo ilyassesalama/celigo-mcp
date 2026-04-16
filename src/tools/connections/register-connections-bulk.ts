@@ -11,10 +11,10 @@ export const registerConnectionsBulk = createTool({
   },
   handler: async ({ connectionIds, integrationId }, context) => {
     const response = await api.put(
-      `/connections/register/${integrationId}`,
+      `/integrations/${integrationId}/connections/register`,
       context.accessToken,
       context.region,
-      { _connectionIds: connectionIds }
+      connectionIds as unknown as Record<string, unknown>
     );
     return filterCeligoResponse(response.data);
   }

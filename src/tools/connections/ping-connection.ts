@@ -9,11 +9,10 @@ export const pingConnection = createTool({
     connectionId: z.string().describe("The ID of the connection to test"),
   },
   handler: async ({ connectionId }, context) => {
-    const response = await api.post(
+    const response = await api.get(
       `/connections/${connectionId}/ping`,
       context.accessToken,
-      context.region,
-      {}
+      context.region
     );
     return filterCeligoResponse(response.data);
   }

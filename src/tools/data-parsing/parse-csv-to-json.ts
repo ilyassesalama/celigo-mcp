@@ -10,7 +10,7 @@ export const parseCsvToJson = createTool({
   },
   handler: async ({ data }, context) => {
     const response = await api.post(
-      '/data/parse/csv',
+      '/processors/csvParser',
       context.accessToken,
       context.region,
       { data }

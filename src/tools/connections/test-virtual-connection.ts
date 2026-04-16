@@ -4,19 +4,19 @@ import { createTool } from "../helpers.js";
 
 export const testVirtualConnection = createTool({
   name: "test_virtual_connection",
-  description: "Test a connection configuration without saving it first.",
+  description: "Test (ping) a connection configuration without saving it first. Pass the full connection body (type, http/rest/netsuite/ftp/...).",
   inputSchema: {
-    name: z.string().describe("Name of the connection to test"),
-    type: z.string().describe("Connection type (e.g., 'http', 'netsuite', 'salesforce')"),
-    rest: z.record(z.any()).optional().describe("REST connection configuration"),
-    soap: z.record(z.any()).optional().describe("SOAP connection configuration"),
+    name: z.string().optional().describe("Name of the connection to test"),
+    type: z.string().describe("Connection type (e.g., 'http', 'netsuite', 'salesforce', 'rest', 'ftp')"),
+    config: z.record(z.any()).optional().describe("Adaptor-specific connection body (e.g. { http: {...} }, { rest: {...} }, { netsuite: {...} }). Fields are merged into the request."),
   },
-  handler: async (params, context) => {
+  handler: async ({ name, type, config }, context) => {
+    const body = { ...(name ? { name } : {}), type, ...(config ?? {}) };
     const response = await api.post(
-      '/connections/virtual/test',
+      '/connections/ping',
       context.accessToken,
       context.region,
-      params
+      body
     );
     return filterCeligoResponse(response.data);
   }

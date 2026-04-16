@@ -4,15 +4,14 @@ import { createTool } from "../helpers.js";
 
 export const deleteAllResourceState = createTool({
   name: "delete_all_resource_state",
-  description: "DESTRUCTIVE ACTION: Delete ALL state for a specific resource. This action CANNOT be undone. You MUST obtain explicit user confirmation.",
+  description: "DESTRUCTIVE ACTION: Delete ALL state scoped to a specific resource. This action CANNOT be undone. You MUST obtain explicit user confirmation.",
   inputSchema: {
-    integrationId: z.string().describe("The ID of the integration"),
-    resourceType: z.string().describe("Resource type (e.g., 'exports', 'imports', 'connections')"),
+    resourceType: z.string().describe("Resource type path segment (e.g., 'exports', 'imports', 'connections', 'flows', 'integrations')"),
     resourceId: z.string().describe("The ID of the resource"),
   },
-  handler: async ({ integrationId, resourceType, resourceId }, context) => {
+  handler: async ({ resourceType, resourceId }, context) => {
     await api.delete(
-      `/integrations/${integrationId}/state/${resourceType}/${resourceId}`,
+      `/${resourceType}/${resourceId}/state`,
       context.accessToken,
       context.region
     );

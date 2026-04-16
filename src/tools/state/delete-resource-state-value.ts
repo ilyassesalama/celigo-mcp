@@ -4,16 +4,15 @@ import { createTool } from "../helpers.js";
 
 export const deleteResourceStateValue = createTool({
   name: "delete_resource_state_value",
-  description: "Delete a specific state key for a resource within an integration.",
+  description: "Delete a specific state key scoped to a resource (export, import, connection, flow, integration).",
   inputSchema: {
-    integrationId: z.string().describe("The ID of the integration"),
-    resourceType: z.string().describe("Resource type (e.g., 'exports', 'imports', 'connections')"),
+    resourceType: z.string().describe("Resource type path segment (e.g., 'exports', 'imports', 'connections', 'flows', 'integrations')"),
     resourceId: z.string().describe("The ID of the resource"),
     key: z.string().describe("The state key to delete"),
   },
-  handler: async ({ integrationId, resourceType, resourceId, key }, context) => {
+  handler: async ({ resourceType, resourceId, key }, context) => {
     await api.delete(
-      `/integrations/${integrationId}/state/${resourceType}/${resourceId}/${encodeURIComponent(key)}`,
+      `/${resourceType}/${resourceId}/state/${encodeURIComponent(key)}`,
       context.accessToken,
       context.region
     );

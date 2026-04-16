@@ -12,10 +12,10 @@ export const evaluateVirtualImportMap = createTool({
   },
   handler: async ({ connectionId, import: importConfig, data }, context) => {
     const response = await api.post(
-      '/imports/virtual/mapping',
+      `/connections/${connectionId}/import/map`,
       context.accessToken,
       context.region,
-      { _connectionId: connectionId, ...importConfig, data }
+      { import: importConfig, data }
     );
     return filterCeligoResponse(response.data);
   }

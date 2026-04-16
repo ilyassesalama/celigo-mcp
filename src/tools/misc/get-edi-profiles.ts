@@ -8,7 +8,7 @@ export const getEdiProfiles = createTool({
   inputSchema: {},
   handler: async (_params, context) => {
     const response = await api.get(
-      '/edi/profiles',
+      '/ediProfiles',
       context.accessToken,
       context.region
     );

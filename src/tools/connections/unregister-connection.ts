@@ -10,11 +10,10 @@ export const unregisterConnection = createTool({
     integrationId: z.string().describe("The ID of the integration to unlink from"),
   },
   handler: async ({ connectionId, integrationId }, context) => {
-    const response = await api.put(
-      `/connections/${connectionId}/unregister/${integrationId}`,
+    const response = await api.delete(
+      `/integrations/${integrationId}/connections/${connectionId}/register`,
       context.accessToken,
-      context.region,
-      {}
+      context.region
     );
     return filterCeligoResponse(response.data);
   }

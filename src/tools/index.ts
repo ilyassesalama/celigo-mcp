@@ -129,6 +129,7 @@ import { listResourceState } from "./state/list-resource-state.js";
 
 // File Definition tools
 import { createFileDefinition } from "./file-definitions/create-file-definition.js";
+import { deleteFileDefinition } from "./file-definitions/delete-file-definition.js";
 import { getFileDefinition } from "./file-definitions/get-file-definition.js";
 import { listFileDefinitions } from "./file-definitions/list-file-definitions.js";
 
@@ -277,6 +278,7 @@ export function registerAllTools(context: ToolContext) {
 
   // File Definition tools
   createFileDefinition(context);
+  deleteFileDefinition(context);
   getFileDefinition(context);
   listFileDefinitions(context);
 

@@ -12,7 +12,7 @@ export const inviteMultipleUsers = createTool({
   },
   handler: async (params, context) => {
     const response = await api.post(
-      '/ashares/bulk',
+      '/invite/multiple',
       context.accessToken,
       context.region,
       params
