@@ -33,72 +33,118 @@ Add this configuration to your MCP client config file:
 
 ## Available Tools
 
-### Token Validation
+**117 tools across 15 categories**, mapped 1:1 to Celigo's [Standard REST API](https://docs.celigo.com/hc/en-us/sections/360007476271-Standard-REST-API).
 
-- `validate_token` - Validate the Celigo API token and get user information
+### Token
 
-### Integration Management
+- `validate_token` — Validate the access token and return the associated userId
 
-- `list_integrations` - List all Celigo integrations
-- `get_integration` - Get a specific integration by ID
-- `create_integration` - Create a new integration
-- `update_integration` - Update an existing integration
-- `delete_integration` - Delete an integration
+### Integrations
 
-### Flow Management
+- `list_integrations`, `get_integration`, `create_integration`, `update_integration`, `patch_integration`, `delete_integration`
+- `clone_integration` — Clone an integration with all its flows
+- `create_integration_revision` — Snapshot the current integration state (supports `ignoreIfNoChanges`)
+- `get_integration_audit` — Change history for an integration
+- `get_integration_connections` / `get_integration_exports` / `get_integration_imports` / `get_integration_users` — List children
+- `get_integration_errors` — Open error summary across all flows
+- `get_integration_dependencies` — Resources referencing the integration
+- `get_integration_template` — Download the integration as a reusable template
 
-- `list_flows` - List flows for a specific integration
-- `get_flow` - Get a specific flow by ID
-- `create_flow` - Create a new flow
-- `update_flow` - Update an existing flow
-- `clone_flow` - Clone an existing flow
-- `run_flow` - Run a specific flow
-- `get_flow_errors` - Get errors for a specific flow
-- `get_flow_audit` - Get audit history for a flow
-- `get_flow_dependencies` - Get dependencies for a flow
-- `get_flow_jobs` - Get job history for a flow
-- `delete_flow` - Delete a flow
+### Flows
 
-### Connection Management
+- `list_flows`, `get_flow`, `create_flow`, `update_flow`, `patch_flow`, `delete_flow`
+- `clone_flow` — Clone a flow with connection remapping
+- `run_flow` — Trigger an on-demand execution
+- `get_flow_audit` / `get_flow_dependencies` / `get_flow_descendants` — Metadata
+- `get_flow_jobs` — Latest execution jobs
+- `get_flow_last_export_datetime` — Timestamp of last export run
+- `get_flow_template` — Download the flow as a template
+- `get_flow_errors` — Open errors for an export/import in the flow
+- `get_resolved_errors` / `delete_resolved_errors` — Resolved error history
+- `resolve_errors` / `retry_errors` — Resolve or retry specific errors
+- `assign_export_error` — Assign errors to a user
+- `update_flow_error_tags` — Tag errors for triage
 
-- `list_connections` - List all connections (with optional type filter)
-- `get_connection` - Get a specific connection by ID
-- `create_connection` - Create a new connection
-- `update_connection` - Update an existing connection
-- `delete_connection` - Delete a connection
+### Connections
 
-### Export Management
+- `list_connections`, `get_connection`, `create_connection`, `update_connection`, `patch_connection`, `delete_connection`
+- `ping_connection` — Test an existing connection
+- `test_virtual_connection` — Test a connection config without saving it
+- `get_connection_audit` / `get_connection_dependencies` / `get_connection_debug_logs`
+- `register_connection` / `unregister_connection` / `register_connections_bulk` — Link/unlink connections to integrations
 
-- `list_exports` - List all export configurations
-- `get_export` - Get a specific export configuration by ID
-- `create_export` - Create a new export configuration
-- `update_export` - Update an existing export configuration
-- `delete_export` - Delete an export configuration
+### Exports
 
-### Import Management
+- `list_exports`, `get_export`, `create_export`, `update_export`, `patch_export`, `delete_export`
+- `clone_export` — Clone an export with connection remapping
+- `get_export_audit` — Change history
+- `execute_virtual_export` — Run an ad-hoc export without saving
+- `export_virtual_paged` — Paginated ad-hoc export
 
-- `list_imports` - List all import configurations
-- `get_import` - Get a specific import configuration by ID
-- `create_import` - Create a new import configuration
-- `update_import` - Update an existing import configuration
-- `delete_import` - Delete an import configuration
+### Imports
+
+- `list_imports`, `get_import`, `create_import`, `update_import`, `patch_import`, `delete_import`
+- `clone_import` — Clone an import with connection remapping
+- `invoke_import` — Trigger a manual import execution
+- `get_import_audit` / `get_import_dependencies`
+- `execute_virtual_import` / `evaluate_virtual_import_map` — Ad-hoc import & mapping preview
+
+### Scripts
+
+- `create_script`, `get_script`, `update_script`, `delete_script`
+- `get_script_logs` — Execution logs for a script
+
+### Tags
+
+- `list_tags`, `get_tag`, `create_tag`, `update_tag`, `delete_tag`
+
+### Users
+
+- `list_users`, `get_user`, `update_user`, `delete_user`
+- `invite_user`, `invite_multiple_users` — Invite user(s) to the account
+
+### iClients
+
+- `list_iclients`, `get_iclient`, `create_iclient`, `update_iclient`, `delete_iclient`
+
+### State (global + resource-scoped)
+
+- `list_state_keys`, `get_state_value`, `upsert_state_value`, `delete_state_value`, `delete_all_state` — Integration-scoped state
+- `list_resource_state`, `get_resource_state_value`, `upsert_resource_state_value`, `delete_resource_state_value`, `delete_all_resource_state` — State scoped to a specific resource (export/import/connection/flow/integration)
+
+### File Definitions
+
+- `list_file_definitions`, `get_file_definition`, `create_file_definition`, `delete_file_definition`
+
+### Data Parsing & Generation
+
+- `parse_csv_to_json`, `parse_xml_to_json`
+- `parse_structured_file` — Parse delimited/fixed-width files against a file definition
+- `generate_structured_file` — Generate delimited/fixed-width output from JSON
+
+### Miscellaneous
+
+- `list_jobs` — List flow/integration jobs with rich filters
+- `list_audit_logs` — Account-wide audit trail
+- `list_licenses` — SmartConnector licenses
+- `get_edi_profiles` — List EDI profiles
 
 ## Example Usage
 
 Once configured, you can ask ChatGPT, Claude, Cursor, and other MCP clients to:
 
 - "List all my Celigo integrations"
-- "Show me the flows for integration [integration-id]"
-- "Create a new flow for integration [integration-id]"
-- "Clone flow [flow-id] and name it 'New Flow'"
-- "Show me recent errors for flow [flow-id]"
-- "Get job history for flow [flow-id]"
-- "Create a new HTTP connection named 'My API Connection'"
-- "Update connection [connection-id] with new settings"
-- "Run the flow with ID [flow-id]"
-- "Get details about connection [connection-id]"
-- "Create a new export configuration"
-- "Show me the audit history for flow [flow-id]"
+- "Show me the open errors for integration [integration-id]"
+- "Retry errors for export [export-id] in flow [flow-id]"
+- "Resolve all errors for import [import-id] in flow [flow-id]"
+- "Create a snapshot of integration [integration-id]"
+- "Clone flow [flow-id] with connection map `{oldId: newId}`"
+- "Ping connection [connection-id] to check if it's operational"
+- "Test a virtual HTTP connection before saving it"
+- "Parse this CSV data to JSON"
+- "Generate a delimited file from these records using file definition [id]"
+- "Invite user@example.com as an administrator"
+- "Set integration state key `lastRun` to `2026-04-17T00:00:00Z`"
 
 ## Getting Your Celigo API Token
 
