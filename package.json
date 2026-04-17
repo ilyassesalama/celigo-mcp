@@ -1,10 +1,10 @@
 {
-  "name": "celigo-mcp",
+  "name": "@ilyassesalama/celigo-mcp",
   "version": "3.0.0",
   "description": "MCP server for Celigo integrator.io API - enables ChatGPT, Claude, Cursor, and other MCP clients to interact with Celigo integrations, flows, and connections",
   "type": "module",
   "bin": {
-    "celigo-mcp": "./build/index.js"
+    "celigo-mcp": "build/index.js"
   },
   "publishConfig": {
     "access": "public"
@@ -33,7 +33,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ilyassesalama/celigo-mcp.git"
+    "url": "git+https://github.com/ilyassesalama/celigo-mcp.git"
   },
   "homepage": "https://github.com/ilyassesalama/celigo-mcp",
   "bugs": {

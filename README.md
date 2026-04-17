@@ -1,6 +1,6 @@
 # Celigo MCP Server
 
-[![npm version](https://badge.fury.io/js/celigo-mcp.svg)](https://www.npmjs.com/package/celigo-mcp)
+[![npm version](https://img.shields.io/npm/v/@ilyassesalama/celigo-mcp.svg)](https://www.npmjs.com/package/@ilyassesalama/celigo-mcp)
 
 A Model Context Protocol (MCP) server for the Celigo integrator.io API. This server allows ChatGPT, Claude, Cursor, and other MCP clients to interact with Celigo integrations, flows, connections, and more.
 
@@ -15,7 +15,7 @@ Add this configuration to your MCP client config file:
       "command": "npx",
       "args": [
         "-y",
-        "celigo-mcp@latest",
+        "@ilyassesalama/celigo-mcp@latest",
         "--access-token",
         "<your-celigo-api-token>",
         "--region",
